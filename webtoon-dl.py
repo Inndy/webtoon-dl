@@ -85,7 +85,7 @@ def download(url):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or '-h' in sys.argv or '--help' in sys.argv:
         print('Usage: %s webtoon-url ...' % sys.argv[0])
         exit(1)
 
