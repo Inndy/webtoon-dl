@@ -83,6 +83,34 @@ def download(url):
                 fo.write(response.content)
             print('Downloaded: %s' % filename)
 
+    generate_album(series)
+
+
+def generate_album(series):
+    files = glob('downloads/%.4d*' % series)
+    content = ''.join('<img src="../%s">' % file for file in files)
+    with open('downloads/album_%.4d.html' % series, 'w') as fo:
+        fo.write('''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webtoon #%.4d</title>
+    <style>
+        body {
+            text-align: center;
+            background: black;
+            line-height: 0;
+        }
+        img {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+%s
+</body>
+</html>''' % (series, content))
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2 or '-h' in sys.argv or '--help' in sys.argv:
